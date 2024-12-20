@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automated Windows Homepage</title>
+    <style>
+        /* General page styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #00c6ff, #0072ff); /* Gradient background */
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: auto;
+        }
+
+    
+        /* Header styling */
+        header {
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 32px;
+            font-family: 'Helvetica Neue', sans-serif;
+        }
+
+        /* Main content area styling */
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            text-align: center;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        /* Paragraphs explaining the code */
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #fff;
+            max-width: 700px;
+            margin: 10px 0;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Button styling */
+        button {
+            padding: 15px 30px;
+            margin: 15px;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            border-radius: 30px;
+            transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+            min-width: 180px;
+            background-color: #fff;
+            color: #333;
+            font-weight: bold;
+        }
+
+        button:hover {
+            opacity: 0.8;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .manual {
+            background-color: #4CAF50; /* Green */
+            color: white;
+        }
+
+        .automatic {
+            background-color: #008CBA; /* Blue */
+            color: white;
+        }
+
+        .status-text {
+            font-weight: bold;
+            margin-top: 20px;
+            font-size: 20px;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 16px;
+            position: relative;
+            width: 100%;
+            bottom: 0;
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        footer small {
+            display: block;
+            margin-top: 10px;
+        }
+
+        /* Animation on button press */
+        .button-animation {
+            animation: button-press 0.3s ease-in-out;
+        }
+
+        @keyframes button-press {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(0.9);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+
+
+</head>
+<body>
+
+     <!-- Header Section -->
+     <header>
+        <h1>Automated Windows, Manual and Automatic Buttons</h1>
+    </header>
+
+    <!-- Main Content Section -->
+    <div class="content">
+        <p>
+            Welcome to the automated window webpage! This demonstration shows how two buttons control either manual or automatic control of the window. You can choose to manually triggeror automatically start a periodic scan of weather conditions to determine opening or closing. 
+        </p>
+        <p>
+            The <strong>Manual</strong> button sends a request to a server to open/close the window immediately when clicked. This script is useful to demonstrate window opening and closing.
+        </p>
+        <p>
+            The <strong>Automatic</strong> button toggles a periodic task. When active, this button sends a request to the aitable server at regular intervals (every 5 minutes in this case), scanning weather to determine status.
+        </p>
+
+    <button id="manual">Manual</button>
+    <button id="automatic">Automatic</button>
+    <p id="status">Status: Not Running</p>
+
+        
+<form id="weatherForm">
+  <!-- Humidity Dropdown -->
+  <label for="humidity">Humidity:</label>
+  <select id="humidity" name="humidity">
+    <option value="5">Low (&lt; 10%)</option>
+    <option value="10">10%</option>
+    <option value="15">15%</option>
+    <option value="20">20%</option>
+    <option value="25">25%</option>
+    <option value="30">30%</option>
+    <option value="35">35%</option>
+    <option value="40">40%</option>
+    <option value="45">45%</option>
+    <option value="50">50%</option>
+    <option value="55">55%</option>
+    <option value="60">60%</option>
+    <option value="65">High (&gt; 60%)</option>
+  </select>
+  <br><br>
+
+  <!-- Temperature Dropdown -->
+  <label for="temperature">Temperature:</label>
+  <select id="temperature" name="temperature">
+    <option value="49">Cold (&lt; 50°F)</option>
+    <option value="50">50°F</option>
+    <option value="51">51°F</option>
+    <option value="52">52°F</option>
+    <option value="53">53°F</option>
+    <option value="54">54°F</option>
+    <option value="55">55°F</option>
+    <option value="56">56°F</option>
+    <option value="57">57°F</option>
+    <option value="58">58°F</option>
+    <option value="59">59°F</option>
+    <option value="60">60°F</option>
+    <option value="61">61°F</option>
+    <option value="62">62°F</option>
+    <option value="63">63°F</option>
+    <option value="64">64°F</option>
+    <option value="65">65°F</option>
+    <option value="66">66°F</option>
+    <option value="67">67°F</option>
+    <option value="68">68°F</option>
+    <option value="69">69°F</option>
+    <option value="70">70°F</option>
+    <option value="71">71°F</option>
+    <option value="72">72°F</option>
+    <option value="73">73°F</option>
+    <option value="74">74°F</option>
+    <option value="75">75°F</option>
+    <option value="76">76°F</option>
+    <option value="77">77°F</option>
+    <option value="78">78°F</option>
+    <option value="79">79°F</option>
+    <option value="80">80°F</option>
+    <option value="81">Hot (&gt; 80°F)</option>
+  </select>
+  <br><br>
+
+  <!-- UV Index Dropdown -->
+  <label for="uvIndex">UV Index:</label>
+  <select id="uvIndex" name="uvIndex">
+    <option value="0">0</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">(&gt; 6)</option>
+  </select>
+  <br><br>
+
+  <!-- Rain Dropdown -->
+  <label for="rain">Rain:</label>
+  <select id="rain" name="rain">
+    <option value="0">None</option>
+    <option value=".3">Light (0.1-0.3 in/hr)</option>
+  </select>
+  <br><br>
+
+  <!-- Wind Speed Dropdown -->
+  <label for="windSpeed">Wind Speed:</label>
+  <select id="windSpeed" name="windSpeed">
+    <option value="3">Calm (&lt; 3 mph)</option>
+    <option value="4">4 mph</option>
+    <option value="5">5 mph</option>
+    <option value="6">6 mph</option>
+    <option value="7">7 mph</option>
+    <option value="8">8 mph</option>
+    <option value="9">9 mph</option>
+    <option value="10">10 mph</option>
+    <option value="11">11 mph</option>
+    <option value="12">12 mph</option>
+    <option value="13">Windy (&gt; 12 mph)</option>
+  </select>
+  <br><br>
+  <button type="submit">Submit</button>
+</form>
+
+    <footer>
+        <p>
+            <strong>Note:</strong> A lot still needs to be incorporated, waiting on feedback from our sponsors.
+        </p>
+        <p>
+            <small>© 2024 ASJ. All rights reserved.</small>
+        </p>
+    </footer>
+
+    <script>
+        let intervalId = null;
+        let isRunning = false;  // Track whether the periodic function is running
+    
+        // Manual button event handler
+        document.getElementById('manual').onclick = function() {
+            console.log("Manual task triggered");
+            stopPeriodicTask();  // Stop any ongoing periodic task before running the manual one
+            fetch('./run_script_1')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('status').textContent = 'Status: Manual task completed';  // Update on success
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        };
+    
+        // Function to start the periodic task
+        function startPeriodicTask() {
+            if (!isRunning) {  // Only start if it's not already running
+                console.log("Starting periodic task...");
+                isRunning = true;
+                document.getElementById('status').textContent = 'Status: Running every 5 minutes';
+
+                //initial run
+                fetch('./run_script_auto')  // Send a request to Flask to run the function
+                        .then(response => response.json())
+                        .then(data => console.log(data.message))
+                        .catch(error => console.error('Error:', error));
+
+                // Start sending requests every 5 minutes (300,000 ms)
+                intervalId = setInterval(function() {
+                    console.log("Sending periodic request...");
+                    fetch('./run_script_auto')  // Send a request to Flask to run the function
+                        .then(response => response.json())
+                        .then(data => console.log(data.message))
+                        .catch(error => console.error('Error:', error));
+                }, 300000);  // 300,000 ms = 5 minutes
+            } else {
+                console.log("Periodic task already running.");
+            }
+        }
+        //Function to stop the periodic task
+        function stopPeriodicTask() {
+            if (isRunning) {
+                console.log("Stopping periodic task...");
+                clearInterval(intervalId);  // Stop sending requests
+                intervalId = null;  // Reset intervalId to ensure it's fully cleared
+                isRunning = false;  // Mark as not running
+                document.getElementById('status').textContent = 'Status: Automation Stopped';
+                console.log("Interval cleared, intervalId:", intervalId);
+            } else {
+                console.log("Periodic task is already stopped.");
+            }
+        }
+    
+        //Automatic button event handler (with safeguard for multiple bindings)
+        document.getElementById('automatic').onclick = function() {
+            console.log("Automatic button clicked.");
+            if (isRunning) {
+                console.log("Stopping periodic task...");
+                stopPeriodicTask();  // Stop if it's currently running
+            } else {
+                console.log("Starting periodic task...");
+                startPeriodicTask();  // Start if it's not running
+            }
+        };
+
+
+
+        document.getElementById("weatherForm").onsubmit = async function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        // Collect form data
+        const data = {
+            humidity: document.getElementById("humidity").value,
+            temperature: document.getElementById("temperature").value,
+            uvIndex: document.getElementById("uvIndex").value,
+            rain: document.getElementById("rain").value,
+            windSpeed: document.getElementById("windSpeed").value,
+        };
+
+        console.log(data)
+
+        // Send data to Flask using fetch()
+        try {
+            const response = await fetch('/run_update', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const result = await response.json();
+            alert(result.message); // Show success message
+            console.log(result.received_data);
+        } catch (error) {
+            console.error('Error sending data to Flask:', error);
+        }
+    };
+    </script>
+
+</body>
+</html>
